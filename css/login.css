@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Khula:wght@700&family=Nanum+Myeongjo:wght@400;700;800&family=Rubik+Puddles&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.text {
+    margin-left: 27px;
+    margin-top: 100px;
+}
+
+.text1 {
+    font-family: "Khula";
+    font-size: 20px;
+}
+
+.text2 {
+    font-family: "Khula";
+    font-weight: bold;
+    font-size: 45px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.text3 {
+    font-family: "Khula";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.btn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 160px;
+}
+
+.kakaobtn{
+    margin-bottom: 10px;
+}
+
+@media (max-width:376px){
+    .text {
+        margin-left: 27px;
+        margin-top: 50px;
+    }    
+
+    .img {
+        max-width: 70%;
+        height: auto;
+    }
+
+    .btn{
+        margin-top: 50px;
+        max-width: 100%;
+    }
+}
