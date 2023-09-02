@@ -1,0 +1,57 @@
+.search{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.search-text{
+    background-color: white;
+    border: 1px solid #E8E8E8;
+    width: 350px;
+    height: 55px;
+    border-radius: 50px;
+    text-indent: 16px;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    right: 60px; 
+    transform: translateY(-50%);
+}
+
+.diary-list{
+    height: 750px; /* 원하는 높이 설정 */
+    overflow-y: scroll;
+}
+
+.list{
+    display: flex;
+    margin: 24px 40px 24px 40px;
+}
+
+.list-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 15px;
+}
+
+.list-img{
+    margin-top: 5px;
+    margin-right: 7px;
+}
+
+hr{
+    border-width: 1px;
+    color: #D3D3D3;
+}
+
+@media (max-width:376px){
+    .search-icon {
+        right: 40px;
+    }
+}
