@@ -1,0 +1,58 @@
+.info {
+    display: flex;
+    margin: 15% 0 30px 50px;
+}
+
+.info-text {
+    font-size: 1.5em;
+}
+
+.info-img {
+    margin-left: 65%;
+    padding-top: 2%;
+}
+
+.write {
+    padding-top: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.write-title {
+    font-size: 1em;
+    border: none;
+    text-align: center;
+    outline: none;
+}
+
+.write-context {
+    width: 80%;
+    height: 500px;
+    text-align: center;
+    margin-top: 10%;
+    border: none;
+    outline: none;
+    resize: none;
+    overflow-y: scroll;
+
+}
+
+.tool.container {
+    padding-top: 5%;
+    display: flex;
+}
+
+.tool.container input[type="button"] {
+    margin-right: 7%;
+    border: none;
+}
+
+.diary-post-btn {
+    margin-left: 45%;
+    border: none;
+    outline: none;
+    background-color: white;
+}
