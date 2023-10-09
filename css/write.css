@@ -1,17 +1,3 @@
-.info {
-    display: flex;
-    margin: 15% 0 30px 50px;
-}
-
-.info-text {
-    font-size: 1.5em;
-}
-
-.info-img {
-    margin-left: 65%;
-    padding-top: 2%;
-}
-
 .write {
     padding-top: 10%;
     display: flex;

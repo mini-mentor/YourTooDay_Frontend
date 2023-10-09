@@ -1,0 +1,41 @@
+.diarycover img{
+    max-width: auto;
+    height: 50%;
+}
+
+.goto-write {
+    margin-top: 1%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.goto-write-btn {
+    height: 10%;
+    margin-right: 2%;
+    background-color: white;
+    border: none;
+}
+
+.diary-list {
+    width: auto;
+    overflow-y: scroll;
+    overflow-y: scroll; /* 세로 스크롤 활성화 */
+    max-height: 450px;
+}
+
+.list{
+    display: flex;
+    margin: 24px 40px 24px 30px;
+}
+
+.list-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 15px;
+}
+
+.name {
+    font-size: 0.9em;
+    color: gray;
+}
