@@ -19,7 +19,6 @@
 .diary-list {
     width: auto;
     overflow-y: scroll;
-    overflow-y: scroll; /* 세로 스크롤 활성화 */
     max-height: 450px;
 }
 
