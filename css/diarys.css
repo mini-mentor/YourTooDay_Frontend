@@ -1,0 +1,70 @@
+.info {
+    display: flex;
+    margin: 10% 0 30px 50px;
+}
+
+.info-text {
+    font-size: 1.5em;
+}
+
+.info-img {
+    margin-left: 65%;
+    padding-top: 2%;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+}
+
+.profileimg {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.profile-text {
+    display: flex;
+    justify-content: center;
+    font-size: 19px;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+}
+
+.text1{
+    margin-top: 40px;
+    font-size: 23px;
+    width: 300px;
+    border: none;
+    border-bottom: solid #aaaaaa 1px;
+    text-align: center;
+}
+
+.text1:focus {
+    outline: none;
+}
+
+.diarytext{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.text2{
+    font-size: 23px;
+    width: 300px;
+    height: 300px;
+    border: none;
+    padding-left: 10px; 
+}
+
+.text2:focus{
+    outline: none;
+}
+
+.iconbottom{
+    
+}
