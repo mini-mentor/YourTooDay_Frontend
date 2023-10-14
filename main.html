@@ -22,57 +22,7 @@
             </div>
 
             <div class="diary-cover container">
-                <button class="diary-cover-btn">
-                    <img src="./images/my-diary1.png">
-                </button>
-
-                <button class="diary-cover-btn">
-                    <img src="./images/my-diary1.png">
-                </button>
-
-                <button class="diary-cover-btn">
-                    <img src="./images/my-diary1.png">
-                </button>
-
-                <button class="diary-cover-btn">
-                    <img src="./images/my-diary1.png">
-                </button>
-            </div>
-        </div>
-
-        <div class="your-diary container">
-            <div class="text">your_today
-                <img src="./images/icons/watch.png">
-            </div>
-
-            <div class="diary-cover container">
-                <button class="diary-cover-btn">
-                    <img src="./images/my-diary1.png">
-                </button>
-
-                <button class="diary-cover-btn">
-                    <img src="./images/my-diary1.png">
-                </button>
-
-                <button class="diary-cover-btn">
-                    <img src="./images/my-diary1.png">
-                </button>
-
-                <button class="diary-cover-btn">
-                    <img src="./images/my-diary1.png">
-                </button>
-
-                <button class="diary-cover-btn">
-                    <img src="./images/my-diary1.png">
-                </button>
-
-                <button class="diary-cover-btn">
-                    <img src="./images/my-diary1.png">
-                </button>
-
-                <button class="diary-cover-btn">
-                    <img src="./images/my-diary1.png">
-                </button>
+               
             </div>
         </div>
 
@@ -85,6 +35,48 @@
             <li class="nav-item"><a href="mypage.html" class="nav-link"><img src="images/icons/nav_person.png"></a></li>
         </ul>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        getDiaryCoverList();
+
+        function getDiaryCoverList() {
+            $.ajax({
+                type : 'get',
+                url : 'http://localhost:8080/api/diary-covers',
+                dataType : 'json',
+                success : function(result) {
+                    let diaryHtml = "";
+
+                    // 반복 출력, FOR, jquery map
+                    for(var i = 0; i < result.length; i++) {
+                        // result의 이미지 url을 diaryHtml에 저장
+                        diaryHtml += getDiaryCoverListHtml(result[i].diaryCoverNo, result[i].diaryCoverImage);
+                    }
+
+                    setDiaryCoverListHtml(diaryHtml);
+                }
+            })
+        }
+
+        function setDiaryCoverListHtml(html){
+            // diary-cover 클래스에 html 코드 추가
+            $(".diary-cover").html(html);
+        }
+
+        function getDiaryCoverListHtml(id, imgUrl){
+            return ` <button class="diary-cover-btn" onclick='moveToDetail(${id})'>
+                    <img src="${imgUrl}">
+                </button>`;
+
+        }
+
+        function moveToDetail(id){
+            location.href = `/inner-diary.html?id=${id}`;
+        }
+
+
+    </script>
 </body>
 
 </html>

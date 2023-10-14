@@ -73,5 +73,10 @@
             <li class="nav-item"><a href="mypage.html" class="nav-link"><img src="images/icons/nav_person.png"></a></li>
         </ul>
     </div>
+    <script>
+        const urlParams = new URL(location.href).searchParams;
+        const id = urlParams.get('id');
+        console.log(id);
+    </script>
 </body>
 </html>
