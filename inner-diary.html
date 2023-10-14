@@ -10,12 +10,12 @@
 </head>
 <body>
     <div class="info container">
-        <div class="info-text">카카오</div>
-        <div class="info-img"><img src="images/icons/diarycover_info.png"></div>
+        <div class="info-text"></div>
+        
     </div>
 
     <div class="diarycover container">
-        <img src="./images/kakao-diarycover.png">
+        <div class="info-img"><img src="" id="coverImg"></div>
     </div>
 
     <div class="goto-write container">
@@ -24,47 +24,7 @@
         </button>
     </div>
 
-    <div class="diary-list container">
-        <div class="list">
-            <img src="./images/icons/diary-list.png">
-            <div class="list-text">
-                과장님의 호출<br>
-                <div class="name">김누리</div>
-            </div>     
-        </div>
-        <hr>
-        <div class="list">
-            <img src="./images/icons/diary-list.png">
-            <div class="list-text">
-                오류를 해결한 하루!<br>
-                <div class="name">박오지</div>
-            </div>     
-        </div>
-        <hr>
-        <div class="list">
-            <img src="./images/icons/diary-list.png">
-            <div class="list-text">
-                야근이 너무 싫어요ㅠ<br>
-                <div class="name">이평야</div>
-            </div>     
-        </div>
-        <hr>
-        <div class="list">
-            <img src="./images/icons/diary-list.png">
-            <div class="list-text">
-                오늘의 코드 리뷰<br>
-                <div class="name">안죠리</div>
-            </div>     
-        </div>
-        <hr>
-        <div class="list">
-            <img src="./images/icons/diary-list.png">
-            <div class="list-text">
-                직장인의 다이어트란...<br>
-                <div class="name">민달팽</div>
-            </div>     
-        </div>
-    </div>
+    <div class="diary-list container"></div>
 
     <div class="nav conainter">
         <ul class="nav-list">
@@ -73,5 +33,61 @@
             <li class="nav-item"><a href="mypage.html" class="nav-link"><img src="images/icons/nav_person.png"></a></li>
         </ul>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        const apiUrl = "http://localhost:8080/api/diary-covers/1";
+
+        // api 호출 후 정보 저장
+        const diaryCoverDeatil = getDiaryCoverDeatil();
+
+        // 제목 넣어줌
+        setCoverTitle(diaryCoverDeatil.diaryCoverName);
+        
+        // 커버 이미지 넣어줌
+        setCoverImg(diaryCoverDeatil.diaryCoverImage);
+
+        // 일기 목록 넣어줌
+        diaryCoverDeatil.diaries.map(diary => {
+            $(".diary-list").append(getDiaryHtml(diary.diaryTitle, diary.diaryDate));
+        });
+
+        // 1: 일기장 상세 목록을 가져오는 api 함수 만들기
+        function getDiaryCoverDeatil(){
+            let diaryCoverDeatil = "";
+            $.ajax(apiUrl, {
+                data: {},
+                dataType: "json",
+                method: "GET",
+                async: false,
+                success: function (resultData) {
+                    diaryCoverDeatil = resultData;
+                }
+            });
+
+            return diaryCoverDeatil;
+        }
+
+        // 2: 응답값을 받아 화면에 html 뿌려주기
+        function setCoverTitle(title){
+            $(".info-text").text(title);
+        }
+
+        function setCoverImg(imgUrl){
+            $("#coverImg").attr("src", imgUrl);
+        }
+
+        function getDiaryHtml(title, date){
+            return `<div class="list">
+                <img src="./images/icons/diary-list.png">
+                <div class="list-text">
+                    ${title}<br>
+                    <div class="name">${date}</div>
+                </div>     
+            </div>
+            <hr>`;
+        }
+
+    </script>
 </body>
 </html>
