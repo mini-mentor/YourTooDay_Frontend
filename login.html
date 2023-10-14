@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <title>login</title>
     <link rel="stylesheet" href="css/login.css">
 </head>
+
 <body>
     <div class="text container">
         <div class="text1">당신의 하루에 공감을 +</div>
@@ -18,12 +20,21 @@
     </div>
 
     <div class="text3">당신의 하루를 공유해주세요</div>
-    
+
     <div class="btn container">
-        <img src="images/kakao-bt.png" class="kakaobtn">
+        <button onclick="moveKakaoLogin()"><img src="images/kakao-bt.png" class="kakaobtn"></button>
         <img src="images/naver-bt.png" class="naverbtn">
     </div>
 
+    <script>
+        const REST_API_KEY = "90948feb4d923809c73dd667a2ba1e33";
+        const kakaoLoginUrl = "https://kauth.kakao.com/oauth/authorize";
+        const redirectUrl = "http://127.0.0.1:5501/main.html";
 
+        function moveKakaoLogin() { 
+            location.href = `${kakaoLoginUrl}?client_id=${REST_API_KEY}&redirect_uri=${redirectUrl}&response_type=code`; 
+        }
+    </script>
 </body>
+
 </html>
