@@ -36,46 +36,65 @@
         </ul>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
-        getDiaryCoverList();
+        const REST_API_KEY = "90948feb4d923809c73dd667a2ba1e33";
+        const kakaoTokenApiUrl = "https://kauth.kakao.com/oauth/token";
+        const kakaoUserApiUrl = "https://kapi.kakao.com/v2/user/me";
+        const redirectUrl = "http://127.0.0.1:5501/main.html";
 
-        function getDiaryCoverList() {
-            $.ajax({
-                type : 'get',
-                url : 'http://localhost:8080/api/diary-covers',
-                dataType : 'json',
-                success : function(result) {
-                    let diaryHtml = "";
+        const urlParams = new URL(location.href).searchParams;
+        const code = urlParams.get('code');
+        const user = getKakaoUserInfo(getKakaoToken(code));
 
-                    // 반복 출력, FOR, jquery map
-                    for(var i = 0; i < result.length; i++) {
-                        // result의 이미지 url을 diaryHtml에 저장
-                        diaryHtml += getDiaryCoverListHtml(result[i].diaryCoverNo, result[i].diaryCoverImage);
-                    }
+        function getKakaoToken(code) {
+            let token = "";
 
-                    setDiaryCoverListHtml(diaryHtml);
+            let data = {
+                "grant_type": "authorization_code",
+                "client_id": REST_API_KEY,
+                "redirect_uri": redirectUrl,
+                "code": code,
+            };
+
+            $.ajax(kakaoTokenApiUrl, {
+                data: data,
+                dataType: "json",
+                method: "POST",
+                async: false,
+                success: function (resultData) {
+                    token = resultData.access_token;
+                    console.log(token);
                 }
-            })
+            });
+
+            return token;
         }
 
-        function setDiaryCoverListHtml(html){
-            // diary-cover 클래스에 html 코드 추가
-            $(".diary-cover").html(html);
+        function getKakaoUserInfo(token) {
+            let user = "";
+
+            $.ajax(kakaoUserApiUrl, {
+                data: {
+                    "secure_resoruce" : true
+                },
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-type': `application/x-www-form-urlencoded;charset=utf-8`,
+                },
+	            dataType: "json",
+                method: "GET",
+                async: false,
+                success: function (resultData) {
+                    console.log(resultData);
+                    user = resultData;
+                }
+            });
+
+            return user;
+
         }
-
-        function getDiaryCoverListHtml(id, imgUrl){
-            return ` <button class="diary-cover-btn" onclick='moveToDetail(${id})'>
-                    <img src="${imgUrl}">
-                </button>`;
-
-        }
-
-        function moveToDetail(id){
-            location.href = `/inner-diary.html?id=${id}`;
-        }
-
-
     </script>
 </body>
 
