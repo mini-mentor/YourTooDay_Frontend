@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +9,11 @@
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/diary-info.css">
 </head>
+
 <body>
     <div class="info container">
         <div class="info-text"></div>
-        
+
     </div>
 
     <div class="diarycover container">
@@ -34,50 +36,50 @@
         </ul>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
         const apiUrl = "http://localhost:8080/api/diary-covers/1";
 
         // api 호출 후 정보 저장
-        const diaryCoverDeatil = getDiaryCoverDeatil();
+        const diaryCoverDetail = getDiaryCoverDetail();
 
         // 제목 넣어줌
-        setCoverTitle(diaryCoverDeatil.diaryCoverName);
-        
+        setCoverTitle(diaryCoverDetail.diaryCoverName);
+
         // 커버 이미지 넣어줌
-        setCoverImg(diaryCoverDeatil.diaryCoverImage);
+        setCoverImg(diaryCoverDetail.diaryCoverImage);
 
         // 일기 목록 넣어줌
-        diaryCoverDeatil.diaries.map(diary => {
+        diaryCoverDetail.diaries.map(diary => {
             $(".diary-list").append(getDiaryHtml(diary.diaryTitle, diary.diaryDate));
         });
 
         // 1: 일기장 상세 목록을 가져오는 api 함수 만들기
-        function getDiaryCoverDeatil(){
-            let diaryCoverDeatil = "";
+        function getDiaryCoverDetail() {
+            let diaryCoverDetail = "";
             $.ajax(apiUrl, {
                 data: {},
                 dataType: "json",
                 method: "GET",
                 async: false,
                 success: function (resultData) {
-                    diaryCoverDeatil = resultData;
+                    diaryCoverDetail = resultData;
                 }
             });
 
-            return diaryCoverDeatil;
+            return diaryCoverDetail;
         }
 
         // 2: 응답값을 받아 화면에 html 뿌려주기
-        function setCoverTitle(title){
+        function setCoverTitle(title) {
             $(".info-text").text(title);
         }
 
-        function setCoverImg(imgUrl){
+        function setCoverImg(imgUrl) {
             $("#coverImg").attr("src", imgUrl);
         }
 
-        function getDiaryHtml(title, date){
+        function getDiaryHtml(title, date) {
             return `<div class="list">
                 <img src="./images/icons/diary-list.png">
                 <div class="list-text">
@@ -90,4 +92,5 @@
 
     </script>
 </body>
+
 </html>
