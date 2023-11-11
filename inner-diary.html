@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -77,6 +77,100 @@
         const urlParams = new URL(location.href).searchParams;
         const id = urlParams.get('id');
         console.log(id);
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>일기장 내부</title>
+    <link rel="stylesheet" href="css/inner-diary.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/diary-info.css">
+</head>
+<body>
+    <div class="info container">
+        <div class="info-text"></div>
+        
+    </div>
+
+    <div class="diarycover container">
+        <div class="info-img"><img src="" id="coverImg"></div>
+    </div>
+
+    <div class="goto-write container">
+        <button class="goto-write-btn">
+            <img src="./images/icons/goto-write-btn.png">
+        </button>
+    </div>
+
+    <div class="diary-list container"></div>
+
+    <div class="nav conainter">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="home.html" class="nav-link"><img src="images/icons/nav_home.png"></a></li>
+            <li class="nav-item"><a href="search.html" class="nav-link"><img src="images/icons/nav_search.png"></a></li>
+            <li class="nav-item"><a href="mypage.html" class="nav-link"><img src="images/icons/nav_person.png"></a></li>
+        </ul>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        const apiUrl = "http://localhost:8080/api/diary-covers/1";
+
+        // api 호출 후 정보 저장
+        const diaryCoverDetail = getDiaryCoverDetail();
+
+        // 제목 넣어줌
+        setCoverTitle(diaryCoverDetail.diaryCoverName);
+        
+        // 커버 이미지 넣어줌
+        setCoverImg(diaryCoverDetail.diaryCoverImage);
+
+        // 일기 목록 넣어줌
+        diaryCoverDetail.diaries.map(diary => {
+            $(".diary-list").append(getDiaryHtml(diary.diaryTitle, diary.diaryDate));
+        });
+
+        // 1: 일기장 상세 목록을 가져오는 api 함수 만들기
+        function getDiaryCoverDetail(){
+            let diaryCoverDetail = "";
+            $.ajax(apiUrl, {
+                data: {},
+                dataType: "json",
+                method: "GET",
+                async: false,
+                success: function (resultData) {
+                    diaryCoverDetail = resultData;
+                }
+            });
+
+            return diaryCoverDetail;
+        }
+
+        // 2: 응답값을 받아 화면에 html 뿌려주기
+        function setCoverTitle(title){
+            $(".info-text").text(title);
+        }
+
+        function setCoverImg(imgUrl){
+            $("#coverImg").attr("src", imgUrl);
+        }
+
+        function getDiaryHtml(title, date){
+            return `<div class="list">
+                <img src="./images/icons/diary-list.png">
+                <div class="list-text">
+                    ${title}<br>
+                    <div class="name">${date}</div>
+                </div>     
+            </div>
+            <hr>`;
+        }
+
     </script>
 </body>
 </html>
