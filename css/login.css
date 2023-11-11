@@ -18,6 +18,7 @@ img {
 .text1 {
     font-family: "Khula";
     font-size: 20px;
+    padding-top: 30px;
 }
 
 .text2 {
@@ -39,6 +40,7 @@ img {
     align-items: center;
     justify-content: center;
     font-size: 18px;
+    margin-top: 60px;
 }
 
 .btn{
