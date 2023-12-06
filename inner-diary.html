@@ -39,10 +39,13 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
-        const apiUrl = "http://localhost:8080/api/diary-covers/1";
+        const apiUrl = "http://localhost:8080/api/diary-covers/2";
+        let cnt = 1;
 
         // api 호출 후 정보 저장
         const diaryCoverDetail = getDiaryCoverDetail();
+
+        const diaryCoverName = diaryCoverDetail.diaryCoverName;
 
         // 제목 넣어줌
         setCoverTitle(diaryCoverDetail.diaryCoverName);
@@ -51,8 +54,12 @@
         setCoverImg(diaryCoverDetail.diaryCoverImage);
 
         // 일기 목록 넣어줌
-        diaryCoverDetail.diaries.map(diary => {
+        /* diaryCoverDetail.diaries.map(diary => {
             $(".diary-list").append(getDiaryHtml(diary.diaryTitle, diary.diaryDate));
+        }); */
+
+        diaryCoverDetail.diaries.map(diary => {
+            $(".diary-list").append(getDiaryHtml(diary.diaryTitle, diary.diaryDate, cnt++));
         });
 
         // 1: 일기장 상세 목록을 가져오는 api 함수 만들기
@@ -80,8 +87,8 @@
             $("#coverImg").attr("src", imgUrl);
         }
 
-        function getDiaryHtml(title, date) {
-            return `<div class="list">
+        /* function getDiaryHtml(title, date) {
+            return `<div class="list" onclick="openDiary()">
                 <img src="./images/icons/diary-list.png">
                 <div class="list-text">
                     ${title}<br>
@@ -89,6 +96,22 @@
                 </div>     
             </div>
             <hr>`;
+        } */
+
+        function getDiaryHtml(title, date, index) {
+            return `<div class="list" onclick="openDiary(${index})">
+                <img src="./images/icons/diary-list.png">
+                <div class="list-text">
+                    ${title}<br>
+                    <div class="name">${date}</div>
+                </div>     
+            </div>
+            <hr>`;
+        }
+
+        function openDiary(index) {
+            // window.open(`diaries.html?id=${index}`);
+            window.open(`diaries.html?id=${index}&diaryCoverName=${diaryCoverName}`);
         }
 
     </script>

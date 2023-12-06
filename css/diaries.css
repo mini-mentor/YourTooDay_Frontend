@@ -4,11 +4,11 @@
 }
 
 .info-text {
-    font-size: 1.5em;
+    font-size: 1em;
 }
 
 .info-img {
-    margin-left: 65%;
+    margin-left: 55%;
     padding-top: 2%;
 }
 
@@ -32,19 +32,13 @@
 .title {
     display: flex;
     justify-content: center;
+    font-size: 1.2em;
+    padding-bottom: 3%;
 }
 
-.text1{
-    margin-top: 40px;
-    font-size: 23px;
-    width: 300px;
-    border: none;
-    border-bottom: solid #aaaaaa 1px;
-    text-align: center;
-}
-
-.text1:focus {
-    outline: none;
+hr {
+    width: 70%;
+    margin: 0 auto;
 }
 
 .diarytext{
@@ -54,7 +48,7 @@
 }
 
 .text2{
-    font-size: 23px;
+    font-size: 15px;
     width: 300px;
     height: 300px;
     border: none;
@@ -63,8 +57,4 @@
 
 .text2:focus{
     outline: none;
-}
-
-.iconbottom{
-    
 }

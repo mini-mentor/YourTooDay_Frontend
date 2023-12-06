@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diaries</title>
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/diaries.css">
+</head>
+
+<body>
+    <div class="info container">
+        <div class="info-text"></div>
+        <div class="info-img"><img src="images/icons/diarycover_info.png"></div>
+    </div>
+
+    <div class="profile container">
+        <div class="profileimg container">
+            <img src="images/profile.png" class="profile-img">
+        </div>
+        <div class="profile-text"></div>
+    </div>
+
+    <br><br>
+    <div class="title container"></div>
+
+    <hr>
+
+    <div class="diarytext container">
+        <div class="text2">
+    </div>
+
+    <div class="nav container">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="home.html" class="nav-link"><img src="images/icons/nav_home.png"></a></li>
+            <li class="nav-item"><a href="search.html" class="nav-link"><img src="images/icons/nav_search.png"></a></li>
+            <li class="nav-item"><a href="mypage.html" class="nav-link"><img src="images/icons/nav_person.png"></a></li>
+        </ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const diaryId = urlParams.get('id');
+        const diaryCoverName = urlParams.get('diaryCoverName');
+
+        console.log(diaryCoverName);
+
+        const apiUrl = `http://localhost:8080/api/diaries/${diaryId}`;
+
+        $(document).ready(function () {
+
+            // API 호출 후 정보 저장
+            const diaryDetail = getDiaryDetail();
+
+            // 제목 넣어줌
+            setDiaryTitle(diaryDetail.diaryTitle);
+            console.log(diaryDetail.diaryTitle);
+
+            // 내용 넣어줌
+            setDiaryContent(diaryDetail.diaryContent);
+            console.log(diaryDetail.diaryContent);
+
+            // 프로필 정보 넣어줌
+            setProfileInfo();
+
+            // 정보 넣어줌
+            setInfo();
+
+        });
+
+        // API를 호출하여 일기 상세 정보 가져오기
+        function getDiaryDetail() {
+            let diaryDetail = "";
+            $.ajax({
+                url: apiUrl,
+                dataType: "json",
+                method: "GET",
+                async: false,
+                success: function (resultData) {
+                    diaryDetail = resultData;
+                },
+                error: function (error) {
+                    console.log('일기 정보를 가져오는 데 실패했습니다.', error);
+                }
+            });
+
+            return diaryDetail;
+        }
+
+        // 화면에 일기 제목 출력
+        function setDiaryTitle(title) {
+            $(".title").text(title);
+        }
+
+        // 화면에 일기 내용 출력
+        function setDiaryContent(content) {
+            $(".text2").text(content);
+        }
+
+        // 프로필 정보 넣어줌
+        function setProfileInfo() {
+            $(".profile-text").text("소정"); // 예시로 고정된 값 사용, 실제로는 API 호출 등을 통해 동적으로 처리
+        }
+
+        // 정보 넣어줌
+        function setInfo() {
+            $(".info-text").text(diaryCoverName);
+        }
+
+    </script>
+</body>
+
+</html>
