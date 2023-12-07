@@ -29,6 +29,7 @@
 .tool.container {
     padding-top: 5%;
     display: flex;
+    margin-top: 50px
 }
 
 .tool.container input[type="button"] {
@@ -42,3 +43,10 @@
     outline: none;
     background-color: white;
 }
+
+.info-img{
+    margin-left: 215px;
+    display: flex;
+    align-items: center;
+}
+
