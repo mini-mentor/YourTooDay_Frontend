@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Diary Cover</title>
+    <link rel="stylesheet" href="css/newDiaryCover.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>새로운 일기장 생성</h1>
+        <form id="newDiaryForm">
+            <label for="diaryName">이름:</label>
+            <input type="text" id="diaryName" name="diaryName" required>
+            <label for="diaryKeyword">키워드:</label>
+            <input type="text" id="diaryKeyword" name="diaryKeyword" required>
+            <label for="diaryImage">대표 이미지 URL:</label>
+            <input type="text" id="diaryImage" name="diaryImage" required>
+            <!-- You can add more fields as needed -->
+
+            <button type="submit">완료</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            // 폼 제출 시 이벤트 처리
+            $("#newDiaryForm").submit(function (event) {
+                event.preventDefault();
+
+                // 입력된 값 가져오기
+                const diaryCoverName = $("#diaryName").val();
+                const diaryCoverKeyword = $("#diaryKeyword").val();
+                const diaryCoverImage = $("#diaryImage").val();
+
+                // 서버에 보낼 데이터
+                const requestData = {
+                    diaryCoverName: diaryCoverName,
+                    diaryCoverKeyword: diaryCoverKeyword,
+                    diaryCoverImage: diaryCoverImage,
+                    writerNo: 1
+                };
+
+                // 서버에 POST 요청 보내기
+                $.ajax({
+                    url: "http://localhost:8080/api/diary-covers",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(requestData),
+                    success: function (response) {
+                        console.log("Diary Cover created successfully:", response);
+                        // 원하는 동작 수행 (예: 화면 전환)
+                    },
+                    error: function (error) {
+                        console.error("Failed to create Diary Cover:", error);
+                        // 에러 처리 코드 추가
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

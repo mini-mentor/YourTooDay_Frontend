@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diary Covers</title>
+    <link rel="stylesheet" href="css/diaryCoverList.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>일기장 목록</h1>
+        <div class="diary-covers" id="diaryCovers"></div>
+        <button onclick="goToNewDiaryCover()">새로운 일기장 추가</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        const apiUrl = "http://localhost:8080/api/diary-covers";
+
+        $(document).ready(async function () {
+            // API 호출 후 데이터 가져오기
+            const diaryCovers = await getDiaryCoverList();
+            // 일기장 목록을 출력하는 함수 호출
+            displayDiaryCovers(diaryCovers);
+        });
+
+        // 일기장 목록을 가져오는 함수
+        async function getDiaryCoverList() {
+            try {
+                const result = await fetch(apiUrl);
+                const diaryCovers = await result.json();
+                return diaryCovers;
+            } catch (error) {
+                console.error('일기장 목록을 가져오는 데 실패했습니다.', error);
+                return [];
+            }
+        }
+
+        // 일기장 목록을 출력하는 함수
+        function displayDiaryCovers(diaryCovers) {
+            const diaryCoversContainer = $("#diaryCovers");
+
+            diaryCovers.forEach(diaryCover => {
+                const diaryCoverHtml = `
+                <div class="diary-cover" onclick="goToInnerDiary(${diaryCover.diaryCoverNo})">
+                    <h3>${diaryCover.diaryCoverName}</h3>
+                </div>
+            `;
+
+                diaryCoversContainer.append(diaryCoverHtml);
+            });
+        }
+
+        function goToNewDiaryCover() {
+            window.location.href = "newDiaryCover.html";
+        }
+        
+        function goToInnerDiary(diaryCoverNo) {
+            window.location.href = `inner-diary.html?diaryCoverNo=${diaryCoverNo}`;
+        }
+    </script>
+</body>
+
+</html>
