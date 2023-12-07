@@ -13,7 +13,6 @@
 <body>
     <div class="info container">
         <div class="info-text"></div>
-
     </div>
 
     <div class="diarycover container">
@@ -21,7 +20,7 @@
     </div>
 
     <div class="goto-write container">
-        <button class="goto-write-btn">
+        <button class="goto-write-btn" onclick="openWrite()">
             <img src="./images/icons/goto-write-btn.png">
         </button>
     </div>
@@ -39,14 +38,15 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
-        const apiUrl = "http://localhost:8080/api/diary-covers/2";
+        const urlParams = new URLSearchParams(window.location.search);
+        const diaryCoverNo = urlParams.get('diaryCoverNo');
+        const apiUrl = `http://localhost:8080/api/diary-covers/${diaryCoverNo}`;
         let cnt = 1;
 
         // api 호출 후 정보 저장
         const diaryCoverDetail = getDiaryCoverDetail();
-
         const diaryCoverName = diaryCoverDetail.diaryCoverName;
-
+        
         // 제목 넣어줌
         setCoverTitle(diaryCoverDetail.diaryCoverName);
 
@@ -110,8 +110,11 @@
         }
 
         function openDiary(index) {
-            // window.open(`diaries.html?id=${index}`);
-            window.open(`diaries.html?id=${index}&diaryCoverName=${diaryCoverName}`);
+            window.location.href = `diaries.html?id=${index}&diaryCoverName=${diaryCoverName}`;
+        }
+
+        function openWrite() {
+            window.location.href = `write.html?diaryCoverNo=${diaryCoverNo}`;
         }
 
     </script>
