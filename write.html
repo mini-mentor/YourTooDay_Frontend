@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,30 +10,74 @@
     <link rel="stylesheet" href="css/diary-info.css">
 </head>
 </head>
+
 <body>
     <div class="info container">
-        <div class="info-text">카카오</div>
+        <div class="info-text"></div>
         <div class="info-img"><img src="images/icons/diarycover_info.png"></div>
     </div>
 
     <div class="write container">
-        <input type="text" class="write-title" placeholder="제목을 입력해주세요">
-        <textarea class="write-context" placeholder="오늘 리나님의 하루는 어떠셨나요?"></textarea>
+        <input type="text" class="write-title" id="write-title" placeholder="제목을 입력해주세요">
+        <textarea class="write-content" id="write-content" placeholder="오늘 하루는 어떠셨나요?"></textarea>
     </div>
 
     <div class="tool container">
         <input type="button" class="tool-img-btn"><img src="images/icons/tool-img.png">
         <input type="button" class="tool-font-btn"><img src="images/icons/tool-font.png">
         <input type="button" class="tool-line-btn"><img src="images/icons/tool-line.png">
-        <button type="submit" class="diary-post-btn">게시</button>
+        <button type="submit" class="diary-post-btn" onclick="saveData()">게시</button>
     </div>
 
     <div class="nav conainter">
         <ul class="nav-list">
-            <li class="nav-item"><a href="home.html" class="nav-link"><img src="images/icons/nav_home.png"></a></li>
+            <li class="nav-item"><a href="diaryCoverList.html" class="nav-link"><img src="images/icons/nav_home.png"></a></li>
             <li class="nav-item"><a href="search.html" class="nav-link"><img src="images/icons/nav_search.png"></a></li>
             <li class="nav-item"><a href="mypage.html" class="nav-link"><img src="images/icons/nav_person.png"></a></li>
         </ul>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const diaryCoverName = urlParams.get('diaryCoverName');
+        $(".info-text").text(diaryCoverName);
+
+    </script>
+
+    <script>
+        function saveData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const diaryCoverNo = urlParams.get('diaryCoverNo');
+
+
+            const title = $('#write-title').val();
+            const content = $('#write-content').val();
+
+
+            const requestData = {
+                diaryTitle: title,
+                diaryContent: content,
+                diaryCoverNo: diaryCoverNo
+            };
+
+            $.ajax({
+                url: "http://localhost:8080/api/diaries",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(requestData),
+                success: function (response) {
+                    console.log(response);
+                    alert('일기가 정상적으로 등록되었습니다!');
+                },
+                error: function (error) {
+                    console.error(error);
+                    alert('Error saving data. Please check the console for details.');
+                }
+            });
+        }
+    </script>
 </body>
+
 </html>
