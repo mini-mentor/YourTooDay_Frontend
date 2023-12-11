@@ -40,7 +40,7 @@
     margin-left: 15px;
 }
 
-.list-img{
+/* .list-img{
     margin-top: 5px;
     margin-right: 7px;
 }
@@ -54,4 +54,24 @@ hr{
     .search-icon {
         right: 40px;
     }
+} */
+
+/* 추가된 스타일 */
+.list img {
+    width: 80px; /* 이미지 너비 조절 */
+    height: 80px; /* 이미지 높이 조절 */
+    border-radius: 50%; /* 이미지를 원형으로 만듦 */
 }
+
+.list-text h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold; /* 일기장 이름 폰트 굵게 설정 */
+}
+
+.list-text p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/* 나머지 스타일은 이전과 동일 */
